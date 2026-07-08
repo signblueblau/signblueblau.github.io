@@ -19,10 +19,17 @@
 
 ## Backlog（按序执行，禁止跳序）
 
-### T1 配色系统重造 [status: todo]
+### T1 配色系统重造 [status: done]
 - 条款：C1–C7
 - 范围：仅 `src/styles.css` 的 :root 与 .dark 色板（含收编 header 遗留硬编码白色 overlay 为变量，C7）
 - 内容：暖纸底（C2）、夜读暖炭底（C3）、主色迁到松绿→墨青域（C4）、单一强调色相（C5）、过对比度门禁（C6）
+- status: done
+- attempt: 1
+- changed_files: src/styles.css
+- summary: 重写 :root 与 .dark 色板：light 背景改为暖纸色 oklch(0.965 0.009 85)（C2，与原版 0.985/0.004/90 可感知不同）；dark 背景改为暖炭 oklch(0.15 0.009 75)（C3）；--primary 从锈橙 hue 30/35 迁到墨青 hue 185（light oklch(0.44 0.08 185)）/ hue 180（dark oklch(0.76 0.08 180)），--ring 同步（C4/C5，destructive 红保留仅表单错误用）。header 遗留的三处 rgb(255 255 255 …) overlay 硬编码收编为 :root 变量 --header-overlay-foreground / --header-overlay-muted-foreground / --header-overlay-hover，@layer components 中改为引用变量，视觉行为不变（C7）。手动/系统双模式切换机制未触碰（C1）。
+- self_check: build PASS / contrast PASS（light+dark 全部 14 对达标，正文 16.0:1，light primary 6.70:1，dark primary 9.50:1）
+- verdict: PASS
+- evidence: 评判器亲自复跑：`npm run build` exit 0（29 页）；`node scripts/check-contrast.mjs` exit 0 全 14 对 PASS（light 正文 16.02:1 / primary 6.70:1，dark 正文 16.01:1 / primary 9.50:1）。git diff 仅 src/styles.css + loop-state.md，逐值核对：C2 light bg oklch(0.965 0.009 85)（L∈[0.955,0.975]、hue∈[75,95]、C≥0.006 全中）；C3 dark bg oklch(0.15 0.009 75)（L∈[0.13,0.17]、hue∈[55,90] 中）；C4 primary light oklch(0.44 0.08 185) / dark oklch(0.76 0.08 180)（hue∈[150,210]、避开禁区 [15,65]、L/C 全在范围）；C5 --ring 同步 primary、其余 token 均低 chroma 暖中性（≤0.02）、仅 destructive 留红；C7 grep 确认 styles.css 无 rgb() 残留、组件目录无硬编码色。C25–C28 未触碰（skip-link/focus-visible/reduced-motion 原样，无新依赖、无 schema 改动）。浏览器实拍 10 张（.loop/screenshots/T1/：home-desktop-light/-content、home-desktop-dark/-content、home-mobile-light/-content、home-mobile-dark/-content、article-desktop-light/-top、article-desktop-dark/-top）：light 暖纸底非纯白、dark 暖炭非蓝黑、链接/分类标签/阅读进度条均为墨青（无锈橙残留）、hero 首屏 header 链接在图上仍可读、双端无布局塌坏；实测 computed bg 与色板一致，手动切换按钮点击两次验证 dark class 正常增删（C1）。核对条款：C1–C7 全过。
 
 ### T2 排版精修 [status: todo]
 - 条款：C8–C12、C19
@@ -64,7 +71,7 @@
 
 ## Review 区（生成器提交后填）
 
-（空）
+（空——T1 已裁决 PASS，详见 Backlog 中 T1 条目）
 
 ## Inbox（等人工）
 
@@ -73,4 +80,4 @@
 
 ## 圈次日志（每圈一行：日期 / 任务 / 裁决 / 一句话）
 
-（空）
+- 2026-07-08 / T1 配色系统重造 / PASS / build+contrast 门禁全过，C2–C4 数值逐项在界、C7 无硬编码残留，10 张实拍确认暖纸底/暖炭底/墨青主色且无视觉回归。

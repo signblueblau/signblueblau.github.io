@@ -67,47 +67,50 @@
 
 :root {
   --radius: 0.5rem;
-  --background: oklch(0.985 0.004 90);
-  --foreground: oklch(0.18 0.01 60);
-  --card: oklch(0.985 0.004 90);
-  --card-foreground: oklch(0.18 0.01 60);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.01 60);
-  --primary: oklch(0.55 0.16 30);
-  --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.95 0.005 90);
-  --secondary-foreground: oklch(0.2 0.01 60);
-  --muted: oklch(0.95 0.005 90);
-  --muted-foreground: oklch(0.5 0.01 60);
-  --accent: oklch(0.93 0.01 60);
-  --accent-foreground: oklch(0.2 0.01 60);
+  --background: oklch(0.965 0.009 85);
+  --foreground: oklch(0.21 0.015 80);
+  --card: oklch(0.965 0.009 85);
+  --card-foreground: oklch(0.21 0.015 80);
+  --popover: oklch(0.98 0.005 85);
+  --popover-foreground: oklch(0.21 0.015 80);
+  --primary: oklch(0.44 0.08 185);
+  --primary-foreground: oklch(0.975 0.006 85);
+  --secondary: oklch(0.935 0.01 85);
+  --secondary-foreground: oklch(0.23 0.015 80);
+  --muted: oklch(0.935 0.01 85);
+  --muted-foreground: oklch(0.46 0.02 80);
+  --accent: oklch(0.92 0.012 85);
+  --accent-foreground: oklch(0.23 0.015 80);
   --destructive: oklch(0.55 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.9 0.005 80);
-  --input: oklch(0.9 0.005 80);
-  --ring: oklch(0.55 0.16 30);
+  --border: oklch(0.885 0.012 85);
+  --input: oklch(0.885 0.012 85);
+  --ring: oklch(0.44 0.08 185);
+  --header-overlay-foreground: oklch(1 0 0);
+  --header-overlay-muted-foreground: oklch(1 0 0 / 0.78);
+  --header-overlay-hover: oklch(1 0 0 / 0.12);
 }
 
 .dark {
-  --background: oklch(0.16 0.005 80);
-  --foreground: oklch(0.95 0.005 80);
-  --card: oklch(0.16 0.005 80);
-  --card-foreground: oklch(0.95 0.005 80);
-  --popover: oklch(0.2 0.005 80);
-  --popover-foreground: oklch(0.95 0.005 80);
-  --primary: oklch(0.72 0.14 35);
-  --primary-foreground: oklch(0.16 0.005 80);
-  --secondary: oklch(0.22 0.005 80);
-  --secondary-foreground: oklch(0.95 0.005 80);
-  --muted: oklch(0.22 0.005 80);
-  --muted-foreground: oklch(0.65 0.01 80);
-  --accent: oklch(0.24 0.005 80);
-  --accent-foreground: oklch(0.95 0.005 80);
+  --background: oklch(0.15 0.009 75);
+  --foreground: oklch(0.93 0.008 80);
+  --card: oklch(0.15 0.009 75);
+  --card-foreground: oklch(0.93 0.008 80);
+  --popover: oklch(0.19 0.009 75);
+  --popover-foreground: oklch(0.93 0.008 80);
+  --primary: oklch(0.76 0.08 180);
+  --primary-foreground: oklch(0.15 0.009 75);
+  --secondary: oklch(0.21 0.008 75);
+  --secondary-foreground: oklch(0.93 0.008 80);
+  --muted: oklch(0.21 0.008 75);
+  --muted-foreground: oklch(0.68 0.015 80);
+  --accent: oklch(0.23 0.008 75);
+  --accent-foreground: oklch(0.93 0.008 80);
   --destructive: oklch(0.7 0.19 22);
-  --destructive-foreground: oklch(0.16 0.005 80);
-  --border: oklch(0.28 0.005 80);
-  --input: oklch(0.28 0.005 80);
-  --ring: oklch(0.72 0.14 35);
+  --destructive-foreground: oklch(0.15 0.009 75);
+  --border: oklch(0.29 0.008 75);
+  --input: oklch(0.29 0.008 75);
+  --ring: oklch(0.76 0.08 180);
 }
 
 @layer base {
@@ -187,17 +190,17 @@
   }
 
   [data-home-header] .home-header-link {
-    color: rgb(255 255 255 / 0.78);
+    color: var(--header-overlay-muted-foreground);
     transition: color 150ms ease;
   }
 
   [data-home-header] .home-header-brand {
-    color: rgb(255 255 255);
+    color: var(--header-overlay-foreground);
   }
 
   [data-home-header] .home-header-link:hover,
   [data-home-header] .home-header-link.is-active {
-    color: rgb(255 255 255);
+    color: var(--header-overlay-foreground);
   }
 
   [data-home-header][data-scrolled="true"] .home-header-link,
@@ -218,13 +221,13 @@
   }
 
   [data-home-header] .home-header-action {
-    color: rgb(255 255 255 / 0.78);
+    color: var(--header-overlay-muted-foreground);
   }
 
   [data-home-header] .home-header-action:hover,
   [data-home-header] .home-header-action:focus-visible {
-    background-color: rgb(255 255 255 / 0.12);
-    color: rgb(255 255 255);
+    background-color: var(--header-overlay-hover);
+    color: var(--header-overlay-foreground);
     outline: none;
   }
 
