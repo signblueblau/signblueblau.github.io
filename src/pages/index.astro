@@ -55,7 +55,7 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
     />
     <div class="relative mx-auto flex min-h-[calc(100svh-6rem)] max-w-6xl items-center px-5 py-20 sm:min-h-[680px] sm:py-24">
       <div class="max-w-4xl text-white drop-shadow-[0_1px_18px_rgba(0,0,0,0.28)]">
-        <h1 class="font-serif text-[2.5rem] font-medium leading-[1.02] sm:text-6xl lg:text-7xl">
+        <h1 class="font-serif text-[2.5rem] font-medium leading-[1.02] tracking-[-0.02em] sm:text-6xl lg:text-7xl">
         An independent magazine on
           <span class="italic text-white"> writing</span>,
           <span class="italic text-white"> design</span>, and the
@@ -83,8 +83,8 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
   <section class="border-b border-border/60">
     <div class="mx-auto max-w-6xl px-5 py-16">
       <div class="mb-6 flex items-center justify-between">
-        <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Featured</div>
-        <a href="/blog" class="text-xs text-muted-foreground hover:text-foreground">All writing &rarr;</a>
+        <div class="meta-label text-muted-foreground">Featured</div>
+        <a href="/blog" class="meta-label text-muted-foreground hover:text-foreground">All writing &rarr;</a>
       </div>
       <article class="grid gap-10 lg:grid-cols-2">
         <a href={`/blog/${featured.slug}`} class="group block" aria-label={`Read ${featured.title}`}>
@@ -106,7 +106,7 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
           </div>
         </a>
         <div class="flex flex-col justify-center">
-          <div class="flex items-center gap-3 text-xs uppercase tracking-wider text-muted-foreground">
+          <div class="meta-label flex items-center gap-3 text-muted-foreground">
             {
               featuredCategory && (
                 <a href={`/categories/${featuredCategory.slug}`} class="inline-flex min-h-9 items-center text-primary hover:underline">
@@ -123,7 +123,7 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
             </h2>
           </a>
           <p class="mt-4 text-lg text-muted-foreground">{featured.excerpt}</p>
-          <div class="mt-6 flex items-center gap-3 text-sm text-muted-foreground">
+          <div class="meta-label mt-6 flex items-center gap-3 text-muted-foreground">
             {
               featuredAuthor && (
                 <>
@@ -151,12 +151,12 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
 
   <section class="mx-auto max-w-6xl px-5 py-16" data-home-latest>
     <div class="flex flex-wrap items-center justify-between gap-4">
-      <h2 class="font-serif text-2xl font-semibold">Latest</h2>
+      <h2 class="meta-label text-muted-foreground">Latest</h2>
       <div class="flex flex-wrap gap-2">
         <button
           type="button"
           data-home-filter=""
-          class="rounded-full border px-3 py-1 text-xs transition-colors border-foreground bg-foreground text-background"
+          class="meta-label rounded-full border px-3 py-1 transition-colors border-foreground bg-foreground text-background"
         >
           All
         </button>
@@ -165,7 +165,7 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
             <button
               type="button"
               data-home-filter={category.slug}
-              class="rounded-full border px-3 py-1 text-xs transition-colors border-border text-muted-foreground hover:text-foreground"
+              class="meta-label rounded-full border px-3 py-1 transition-colors border-border text-muted-foreground hover:text-foreground"
             >
               {category.name}
             </button>

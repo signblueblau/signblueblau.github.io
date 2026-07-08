@@ -31,12 +31,17 @@
 - verdict: PASS
 - evidence: 评判器亲自复跑：`npm run build` exit 0（29 页）；`node scripts/check-contrast.mjs` exit 0 全 14 对 PASS（light 正文 16.02:1 / primary 6.70:1，dark 正文 16.01:1 / primary 9.50:1）。git diff 仅 src/styles.css + loop-state.md，逐值核对：C2 light bg oklch(0.965 0.009 85)（L∈[0.955,0.975]、hue∈[75,95]、C≥0.006 全中）；C3 dark bg oklch(0.15 0.009 75)（L∈[0.13,0.17]、hue∈[55,90] 中）；C4 primary light oklch(0.44 0.08 185) / dark oklch(0.76 0.08 180)（hue∈[150,210]、避开禁区 [15,65]、L/C 全在范围）；C5 --ring 同步 primary、其余 token 均低 chroma 暖中性（≤0.02）、仅 destructive 留红；C7 grep 确认 styles.css 无 rgb() 残留、组件目录无硬编码色。C25–C28 未触碰（skip-link/focus-visible/reduced-motion 原样，无新依赖、无 schema 改动）。浏览器实拍 10 张（.loop/screenshots/T1/：home-desktop-light/-content、home-desktop-dark/-content、home-mobile-light/-content、home-mobile-dark/-content、article-desktop-light/-top、article-desktop-dark/-top）：light 暖纸底非纯白、dark 暖炭非蓝黑、链接/分类标签/阅读进度条均为墨青（无锈橙残留）、hero 首屏 header 链接在图上仍可读、双端无布局塌坏；实测 computed bg 与色板一致，手动切换按钮点击两次验证 dark class 正常增删（C1）。核对条款：C1–C7 全过。
 
-### T2 排版精修 [status: todo]
+### T2 排版精修 [status: done]
 - 条款：C8–C12、C19
 - 范围：styles.css + 涉及标题/元信息的组件
 - 内容：展示级 Fraunces 标题（C9）、杂志标签体统一（C10）、圆角收紧到 ≤0.375rem（C19）
-
-### T3 卡片与分隔语言 [status: todo]
+- status: done
+- attempt: 1
+- changed_files: src/styles.css, src/pages/index.astro, src/pages/blog/[slug].astro, src/pages/blog/index.astro, src/pages/about.astro, src/pages/contact.astro, src/pages/authors/[slug].astro, src/pages/categories/[slug].astro, src/pages/tags/[slug].astro, src/components/PostCard.astro, src/components/Sidebar.astro, src/components/Footer.astro, src/components/Newsletter.astro, src/components/TableOfContents.astro
+- summary: C9：首页 lead h1 与文章 h1 保持 Fraunces（font-serif utility 自带 font-optical-sizing:auto），字重收到 medium(500)、字距 -0.02em，杂志标题分量感。C10：styles.css 新增单一 @utility meta-label（0.7rem / uppercase / 0.1em 字距 / 500 字重），全站约 35 处元信息（分类标签、日期、作者行、read time、Featured/Latest/Tags/Share/Written by/Newsletter 等 section 标签、tag/分类 pill、表单 label 眉线）统一替换原先三种 ad-hoc 写法（tracking-wider / tracking-[0.2em] / 无字距），层级仍靠字号字重表达未加色（C12）。C19：--radius 0.5rem→0.375rem，prose-article img 8px→4px，pre/callout 圆角 8px→var(--radius)。C8/C11 未触碰（无新字体；68ch/1.75 保持）。仅动排版，未改卡片布局/首页结构/元数据项（C29，冗余留给 T3/T5）。
+- self_check: build PASS（29 页）/ contrast PASS（未动颜色 token，仍复跑确认 14 对全过）
+- verdict: PASS
+- evidence: 评判器亲自复跑：`npm run build` exit 0（29 页）；`node scripts/check-contrast.mjs` exit 0（14 对全过，颜色未动仍复验）。git diff 逐文件读：范围恰为声称的 14 个 src 文件 + loop-state.md，无越界；仅 class 与标签样式改动，无卡片布局/首页结构性 HTML 重排（C29）。C8：三个 @font-face 块原样、无新字体引入（grep 确认）。C9：index.astro lead h1 与 blog/[slug].astro 文章 h1 均 font-serif + font-medium(500) + tracking-[-0.02em]；实测 computed：lead h1 Fraunces / weight 500 / letter-spacing -1.44px / font-optical-sizing auto，文章 h1 Fraunces / 500 / -0.96px / auto（≤600、≤0 全达标）。C10：styles.css 单一 @utility meta-label（0.7rem/500/0.1em/uppercase）；grep 确认全站 tracking-wider、tracking-[0.2em] 与组件内 uppercase ad-hoc 写法零残留；抽查 PostCard/Sidebar/Footer/Newsletter/TableOfContents/contact/blog-index 等 ≥7 个文件均引用 meta-label；实测 computed（Featured 标签、Latest h2、category 标签、filter pill、文章 eyebrow、tag pill）：uppercase / 11.2px（≤12px）/ letter-spacing 1.12px = 0.1×font-size（≥0.08em）全过。C11：实测 prose-article max-width 729px≈68ch、line-height/font-size = 1.75（≥1.7）。C19：--radius computed 0.375rem；prose img computed border-radius 4px（注入测试 img 实测）；styles.css 无 >6px 圆角残留、组件无 rounded-lg+。C25–C28：skip-link/focus-visible/reduced-motion 样式原样在（grep 行号核对），Latest/Continue reading 重样式后仍为 h2 元素（DOM 实测 h2 列表含之），无 RSS/sitemap/SEO 改动、无新依赖、无 schema 改动。截图 8 张（.loop/screenshots/T2/：home-desktop-light-hero/-content、home-desktop-dark-hero/-content、home-mobile-light、home-mobile-dark、article-desktop-light-top/-code、article-desktop-dark-top/-code）：lead 标题呈衬线杂志标题感、Featured/Latest/eyebrow/byline/Tags/Share 标签体全站一致、code block 双模式可读、375px 无水平溢出（scrollWidth==clientWidth 实测）、双模式无布局塌坏。核对条款：C8–C12、C19 全过。
 - 条款：C13、C15 的卡片部分
 - 范围：PostCard.astro、相关列表页
 - 内容：去阴影改 hairline+留白（C13）、清理卡片冗余元信息（C15 后半）
@@ -71,7 +76,7 @@
 
 ## Review 区（生成器提交后填）
 
-（空——T1 已裁决 PASS，详见 Backlog 中 T1 条目）
+（空——T2 已裁决 PASS，详见 Backlog 中 T2 条目）
 
 ## Inbox（等人工）
 
@@ -81,3 +86,4 @@
 ## 圈次日志（每圈一行：日期 / 任务 / 裁决 / 一句话）
 
 - 2026-07-08 / T1 配色系统重造 / PASS / build+contrast 门禁全过，C2–C4 数值逐项在界、C7 无硬编码残留，10 张实拍确认暖纸底/暖炭底/墨青主色且无视觉回归。
+- 2026-07-08 / T2 排版精修 / PASS / build 门禁过，diff 无越界无禁区触碰，computed style 实测 C9 标题（Fraunces/500/负字距）与 C10 标签体（uppercase/11.2px/0.1em）逐项达标，C11/C19 数值在界，8 张实拍双模式双端无回归。

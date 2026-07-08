@@ -41,21 +41,21 @@ const posts = await sortedPosts();
 
     <div class="mt-6 space-y-4 text-sm">
       <div class="flex flex-wrap items-center gap-2">
-        <span class="text-xs uppercase tracking-wider text-muted-foreground">Categories</span>
-        <a data-category-filter="" href="/blog" class="rounded-full border px-3 py-1 text-xs">All</a>
+        <span class="meta-label text-muted-foreground">Categories</span>
+        <a data-category-filter="" href="/blog" class="meta-label rounded-full border px-3 py-1">All</a>
         {
           categories.map((category) => (
-            <a data-category-filter={category.slug} href={`/categories/${category.slug}`} class="rounded-full border px-3 py-1 text-xs">
+            <a data-category-filter={category.slug} href={`/categories/${category.slug}`} class="meta-label rounded-full border px-3 py-1">
               {category.name}
             </a>
           ))
         }
       </div>
       <div class="flex flex-wrap items-center gap-2">
-        <span class="text-xs uppercase tracking-wider text-muted-foreground">Tags</span>
+        <span class="meta-label text-muted-foreground">Tags</span>
         {
           tags.map((tag) => (
-            <a data-tag-filter={tag.slug} href={`/tags/${tag.slug}`} class="rounded-full border px-2.5 py-0.5 text-xs">
+            <a data-tag-filter={tag.slug} href={`/tags/${tag.slug}`} class="meta-label rounded-full border px-2.5 py-0.5">
               #{tag.name}
             </a>
           ))
