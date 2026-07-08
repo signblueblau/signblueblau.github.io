@@ -42,9 +42,18 @@
 - self_check: build PASS（29 页）/ contrast PASS（未动颜色 token，仍复跑确认 14 对全过）
 - verdict: PASS
 - evidence: 评判器亲自复跑：`npm run build` exit 0（29 页）；`node scripts/check-contrast.mjs` exit 0（14 对全过，颜色未动仍复验）。git diff 逐文件读：范围恰为声称的 14 个 src 文件 + loop-state.md，无越界；仅 class 与标签样式改动，无卡片布局/首页结构性 HTML 重排（C29）。C8：三个 @font-face 块原样、无新字体引入（grep 确认）。C9：index.astro lead h1 与 blog/[slug].astro 文章 h1 均 font-serif + font-medium(500) + tracking-[-0.02em]；实测 computed：lead h1 Fraunces / weight 500 / letter-spacing -1.44px / font-optical-sizing auto，文章 h1 Fraunces / 500 / -0.96px / auto（≤600、≤0 全达标）。C10：styles.css 单一 @utility meta-label（0.7rem/500/0.1em/uppercase）；grep 确认全站 tracking-wider、tracking-[0.2em] 与组件内 uppercase ad-hoc 写法零残留；抽查 PostCard/Sidebar/Footer/Newsletter/TableOfContents/contact/blog-index 等 ≥7 个文件均引用 meta-label；实测 computed（Featured 标签、Latest h2、category 标签、filter pill、文章 eyebrow、tag pill）：uppercase / 11.2px（≤12px）/ letter-spacing 1.12px = 0.1×font-size（≥0.08em）全过。C11：实测 prose-article max-width 729px≈68ch、line-height/font-size = 1.75（≥1.7）。C19：--radius computed 0.375rem；prose img computed border-radius 4px（注入测试 img 实测）；styles.css 无 >6px 圆角残留、组件无 rounded-lg+。C25–C28：skip-link/focus-visible/reduced-motion 样式原样在（grep 行号核对），Latest/Continue reading 重样式后仍为 h2 元素（DOM 实测 h2 列表含之），无 RSS/sitemap/SEO 改动、无新依赖、无 schema 改动。截图 8 张（.loop/screenshots/T2/：home-desktop-light-hero/-content、home-desktop-dark-hero/-content、home-mobile-light、home-mobile-dark、article-desktop-light-top/-code、article-desktop-dark-top/-code）：lead 标题呈衬线杂志标题感、Featured/Latest/eyebrow/byline/Tags/Share 标签体全站一致、code block 双模式可读、375px 无水平溢出（scrollWidth==clientWidth 实测）、双模式无布局塌坏。核对条款：C8–C12、C19 全过。
+
+### T3 卡片与分隔语言 [status: done]
 - 条款：C13、C15 的卡片部分
 - 范围：PostCard.astro、相关列表页
 - 内容：去阴影改 hairline+留白（C13）、清理卡片冗余元信息（C15 后半）
+- status: done
+- attempt: 1
+- changed_files: src/components/PostCard.astro, src/styles.css
+- summary: C13：全站 grep 后仅存两处装饰性 box-shadow（prose-article pre 代码块的 inset 高光，light+dark 各一），已删除——代码块本就有 1px border 分隔，去掉后更贴印刷调性；同时给 default 变体卡片加 hairline 上边线（border-t border-border + pt-5），使首页 Latest / 文章页 Continue reading 网格卡片呈杂志索引式细线分隔。保留的两处非卡片阴影：styles.css [data-home-header] 的 box-shadow:none（本身是去阴影声明）、index.astro hero 文字 drop-shadow（首屏图上文字可读性用，且 hero 属 T4 禁区不可动）。C15 卡片部分：default 网格卡去掉底部「作者 · X min」行，只留 category · date；compact（Sidebar）去掉「· X min」只留 date；list（archive/分类/tag/作者页）去掉 read time、保留作者名链接；头像与 read time 现全站仅存于首页 featured 卡（index.astro，未动）。未改网格列结构/featured 尺寸（留给 T5）、未动 hero（T4）、Newsletter/Footer（T6）；卡片链接 focus-visible 走全局 outline 规则未触碰（C25）。
+- self_check: build PASS（29 页）/ contrast PASS（未动颜色 token，仍复跑确认 14 对全过）
+- verdict: PASS
+- evidence: 评判器亲自复跑：`npm run build` exit 0（29 页）。git diff 逐文件读：范围恰为声称的 3 个文件（PostCard.astro + styles.css + loop-state.md），无越界——未碰 hero/网格列结构/Newsletter/Footer（C29，属 T4/T5/T6）。C13：全 src grep box-shadow 仅剩 styles.css:181 `box-shadow: none`（去阴影声明，豁免）+ index.astro:57 hero 文字 drop-shadow（豁免）；两处 pre 代码块 inset 高光已删；文章页代码块实测 computed box-shadow=none、border-top-width=1px、border-color=oklch(0.88 0.008 80)，仍可读。default 卡片改 border-t border-border + pt-5 细线分隔。C15：实拍+DOM 核对——default 网格卡仅 category·date（无 read-time/头像）、compact 仅 category·date、list 卡有 category·date+作者名链接但无 read-time；首页 featured 卡仍保留头像+「ELELA MARCH · 2 MIN READ」（index.astro 未动）。author-link 条件：list 变体 `{author && (…)}` 包裹整块，author 缺失时不渲染空壳，markup 合法。数据属性全保留：三变体均含 data-post-card/data-category/data-tags/data-search/hidden。关键功能实测：首页点 ESSAYS filter → 可见卡 6→1、仅 essays、0 泄漏；archive 搜 "quiet" → 1 result「The quiet craft…」、data-search 全含词、count 文案正确。C25：键盘 Tab 聚焦卡片标题链接实测 computed outline=2px solid oklch(0.44 0.08 185) offset=3px，截图见清晰焦点框。C26–C28 未触碰（无 RSS/sitemap/SEO 改动、package.json 与 content.config 未动、无新依赖）。截图 13 张（.loop/screenshots/T3/：home-desktop-light-full/-latest、home-desktop-light-filtered-essays、home-desktop-dark-latest、blog-archive-light/-light2、blog-archive-search-quiet、article-continue-reading-light3、article-code-block-light、focus-visible-card-link/-title 等）：light+dark 双模式 Latest 网格呈细线编辑块、无浮动阴影盒、无冗余 read-time/头像；featured 卡保留头像+read-time；archive list 细线分隔+作者链接+无 read-time；Continue reading 卡细线一致；代码块去 inset 高光留边框仍可读；焦点框清晰可见。核对条款：C13、C15 卡片部分全过。
 
 ### T4 首页 lead story 改版 [status: todo]
 - 条款：C14、C10
@@ -76,7 +85,7 @@
 
 ## Review 区（生成器提交后填）
 
-（空——T2 已裁决 PASS，详见 Backlog 中 T2 条目）
+- （空）
 
 ## Inbox（等人工）
 
@@ -87,3 +96,4 @@
 
 - 2026-07-08 / T1 配色系统重造 / PASS / build+contrast 门禁全过，C2–C4 数值逐项在界、C7 无硬编码残留，10 张实拍确认暖纸底/暖炭底/墨青主色且无视觉回归。
 - 2026-07-08 / T2 排版精修 / PASS / build 门禁过，diff 无越界无禁区触碰，computed style 实测 C9 标题（Fraunces/500/负字距）与 C10 标签体（uppercase/11.2px/0.1em）逐项达标，C11/C19 数值在界，8 张实拍双模式双端无回归。
+- 2026-07-08 / T3 卡片与分隔语言 / PASS / build exit 0，diff 仅 3 文件无越界，src grep 仅剩豁免 box-shadow（none 声明+hero drop-shadow），代码块 computed box-shadow=none 留 1px 边框；default/compact/list 卡冗余元信息按变体裁净、featured 卡保留头像+read-time；ESSAYS filter 与 archive "quiet" 搜索实测正常（数据属性全存）、卡片链接 focus-visible 2px 焦点框清晰；13 张实拍双模式无回归。
