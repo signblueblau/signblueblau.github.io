@@ -13,7 +13,7 @@
 
 ## Milestones（人工复核点）
 
-- [ ] **M1 设计基座定稿**：T1–T3 全部 done 后停。站主亲眼看配色/字体/标签体系截图。
+- [x] **M1 设计基座定稿**：T1–T3 全部 done。站主 2026-07-08 验收通过（墨青/松绿色系 + 安静印刷基座 OK），放行 T4。
 - [ ] **M2 首页改版定稿**：T4–T6 全部 done 后停。站主亲眼看新首页。
 - [ ] **M3 上线前检查**：全部任务 done 后停。站主过一遍全站 + 批准建 repo/push/开 Pages。
 
@@ -55,10 +55,17 @@
 - verdict: PASS
 - evidence: 评判器亲自复跑：`npm run build` exit 0（29 页）。git diff 逐文件读：范围恰为声称的 3 个文件（PostCard.astro + styles.css + loop-state.md），无越界——未碰 hero/网格列结构/Newsletter/Footer（C29，属 T4/T5/T6）。C13：全 src grep box-shadow 仅剩 styles.css:181 `box-shadow: none`（去阴影声明，豁免）+ index.astro:57 hero 文字 drop-shadow（豁免）；两处 pre 代码块 inset 高光已删；文章页代码块实测 computed box-shadow=none、border-top-width=1px、border-color=oklch(0.88 0.008 80)，仍可读。default 卡片改 border-t border-border + pt-5 细线分隔。C15：实拍+DOM 核对——default 网格卡仅 category·date（无 read-time/头像）、compact 仅 category·date、list 卡有 category·date+作者名链接但无 read-time；首页 featured 卡仍保留头像+「ELELA MARCH · 2 MIN READ」（index.astro 未动）。author-link 条件：list 变体 `{author && (…)}` 包裹整块，author 缺失时不渲染空壳，markup 合法。数据属性全保留：三变体均含 data-post-card/data-category/data-tags/data-search/hidden。关键功能实测：首页点 ESSAYS filter → 可见卡 6→1、仅 essays、0 泄漏；archive 搜 "quiet" → 1 result「The quiet craft…」、data-search 全含词、count 文案正确。C25：键盘 Tab 聚焦卡片标题链接实测 computed outline=2px solid oklch(0.44 0.08 185) offset=3px，截图见清晰焦点框。C26–C28 未触碰（无 RSS/sitemap/SEO 改动、package.json 与 content.config 未动、无新依赖）。截图 13 张（.loop/screenshots/T3/：home-desktop-light-full/-latest、home-desktop-light-filtered-essays、home-desktop-dark-latest、blog-archive-light/-light2、blog-archive-search-quiet、article-continue-reading-light3、article-code-block-light、focus-visible-card-link/-title 等）：light+dark 双模式 Latest 网格呈细线编辑块、无浮动阴影盒、无冗余 read-time/头像；featured 卡保留头像+read-time；archive list 细线分隔+作者链接+无 read-time；Continue reading 卡细线一致；代码块去 inset 高光留边框仍可读；焦点框清晰可见。核对条款：C13、C15 卡片部分全过。
 
-### T4 首页 lead story 改版 [status: todo]
+### T4 首页 lead story 改版 [status: review]
 - 条款：C14、C10
 - 范围：index.astro 首屏 + Header 首页态
 - 内容：全出血压字 → 编辑部封面式构图，加 folio 眉线（C14）
+- status: done
+- attempt: 1
+- changed_files: src/pages/index.astro, src/components/Header.astro, src/styles.css
+- summary: C14：首屏从「全出血大图压白字 + 三层暗化渐变」改为编辑部封面式左右分栏——左栏文字领地（primary 短横 + Fraunces h1 + 摘要 + 两个链接），右栏 figure 框式封面图（autumn-scene 复用，aspect 4/3 移动 / 4/5 桌面，1px border + rounded-md 直角克制，quality 58），图文各占领地不再叠压；顶部加 folio 眉线（站名 · 「Issue · 日期」，meta-label 体 + border-b hairline），底部 figcaption「On the cover」同为 meta-label，强化期刊框架。C10：新增的 folio、figcaption 全部走既有 meta-label utility（uppercase/0.7rem/0.1em），未造新标签样式。连带收编：去掉全出血图后，header 首页态的白字 overlay 已无照片可依托，故把 Header 的 isHome 分支（transparent/text-white、home-header-link/-brand/-action、data-home-header/data-scrolled/data-panel-open）全部退化为常规态（header 始终 bg-background/80 + backdrop-blur，链接读在页面背景上），并删除 styles.css 里对应的 [data-home-header] 组件块与 3 个 --header-overlay-* 变量、Header.astro 里孤立的 setPanelOpen/setHeaderScrolled/scroll listener（仅清理自身改动产生的 orphan）。C13 精神：新构图用 hairline + 留白，无 box-shadow。C25/C26：单一 h1 保留、lead essay 链接可达、skip-link/#main-content/landmarks 未动。C29：只碰 hero/lead 区 + header 首页态，未碰 Featured/Latest 网格/Newsletter/Footer，未动色板 token 与字体。
+- self_check: build PASS（29 页）/ contrast PASS（未改 required 色对；虽删了 3 个 --header-overlay-* 变量但均非门禁对，复跑 light+dark 14 项全过，正文 16.0:1 / primary light 6.70:1 dark 9.50:1）
+- verdict: PASS
+- evidence: 评判器亲自复跑：`npm run build` exit 0（29 页）；`node scripts/check-contrast.mjs` exit 0（14 对全过，删 3 个 --header-overlay-* 变量后无门禁回归——它们本非门禁对，light 正文 16.02:1/primary 6.70:1，dark 正文 16.01:1/primary 9.50:1）。GATE2 git diff 逐文件读：范围恰为声称 4 文件（index.astro/Header.astro/styles.css + loop-state.md），无越界——Featured/Latest 网格 markup、Newsletter、Footer 未动（C29）；styles.css 移除的 custom-prop 定义精确仅 3 个 --header-overlay-*（grep 确认无其它 palette/font/radius/oklch token 行被删），无新增 token；hero 新构图只用 token 类（bg-primary/border-border/text-muted-foreground/text-foreground），无硬编码色（C7）；无 package.json / content.config 改动（C27/C28）。orphan 专项：grep 全 src/ 对 data-home-header / header-overlay / setPanelOpen / setHeaderScrolled / home-header-link/-brand/-action / data-scrolled / data-panel-open 全部 0 命中——[data-home-header] CSS 块、3 个 overlay 变量、孤立 scroll/panel JS 整体清除无悬挂引用；Header.astro 交互 handler（search/menu/Escape/theme）实读仍在。C25/C26：单一 h1（DOM 实测 h1count=1）、lead-essay 链接可达、skip-link+#main-content+<main> landmark 原样、figure 封面图 alt="" 装饰（实测）。GATE3 亲眼看（11 张实拍 .loop/screenshots/T4/）：桌面 1280px light（bg oklch(0.965 0.009 85)）+dark（oklch(0.15 0.009 75)）hero 均为左文右图两分领地，headline 在页面背景上、绝不压在照片上；folio 眉线呈 masthead 眉标（uppercase/11.2px/letter-spacing 0.100em，figcaption 同值，≥0.08em C10 达标）；primary 短横 computed oklch(0.44 0.08 185)=--primary（墨青，hue 185，无锈橙残留，避开禁区 [15,65]）。差异化专项（brief §7/C14）：对照 preview.webp——原版是全出血自然照片 + 白色 headline 叠压其上（text-over-photo）；新版是编辑部封面式左右分栏，照片入 1px border+rounded-md 的 figure 框各占右半领地、文字在左半纸底领地、顶部 folio 眉线 + hairline、底部「ON THE COVER」figcaption——结构上不再是「大图压字」，可辨认地不同。Header：首页 header computed bg oklab(0.965.../0.8)（半透纸底+blur），滚动 700px 前后 bg 不变（无 background-swap 破坏），滚动态实拍链接在纸底上清晰可读、非透明白字压图。交互实测：search 点击 open（aria-expanded=true、panel 显）→Escape 关（hidden=true）；theme 点击 light→dark 翻转并写 localStorage=dark；mobile 375px 菜单点击 open（aria-expanded=true）→Escape 关。移动 375px light+dark：折叠为 folio→文字→框式封面（ON THE COVER）纵向堆叠，无文字压图，scrollWidth==clientWidth==360 无水平溢出。回归：Latest 网格仍渲染，ESSAYS filter 实测可见卡 6→1、仅 essays 类、无泄漏。核对条款：C14、C10 全过；C25/C26/C27/C28/C29 禁区未触碰。
 
 ### T5 首页编辑层级网格 [status: todo]
 - 条款：C15
@@ -97,3 +104,4 @@
 - 2026-07-08 / T1 配色系统重造 / PASS / build+contrast 门禁全过，C2–C4 数值逐项在界、C7 无硬编码残留，10 张实拍确认暖纸底/暖炭底/墨青主色且无视觉回归。
 - 2026-07-08 / T2 排版精修 / PASS / build 门禁过，diff 无越界无禁区触碰，computed style 实测 C9 标题（Fraunces/500/负字距）与 C10 标签体（uppercase/11.2px/0.1em）逐项达标，C11/C19 数值在界，8 张实拍双模式双端无回归。
 - 2026-07-08 / T3 卡片与分隔语言 / PASS / build exit 0，diff 仅 3 文件无越界，src grep 仅剩豁免 box-shadow（none 声明+hero drop-shadow），代码块 computed box-shadow=none 留 1px 边框；default/compact/list 卡冗余元信息按变体裁净、featured 卡保留头像+read-time；ESSAYS filter 与 archive "quiet" 搜索实测正常（数据属性全存）、卡片链接 focus-visible 2px 焦点框清晰；13 张实拍双模式无回归。
+- 2026-07-08 / T4 首页 lead story 改版 / PASS / build+contrast 门禁全过（删 3 个 --header-overlay-* 非门禁变量无回归），diff 仅 4 文件无越界、orphan grep（data-home-header/header-overlay/setPanelOpen/setHeaderScrolled 等）全 0 命中，hero 由全出血压字改编辑部左文右图两领地（folio 眉线 uppercase/0.100em + 框式封面 figcaption + primary 墨青 oklch(0.44 0.08 185) 无锈橙），对照 preview.webp 结构可辨认不同；header 改半透纸底+blur 滚动无 background-swap 破坏，search/menu/Escape/theme 交互实测全存，Latest filter 6→1 回归正常，375px 无溢出；11 张实拍双模式双端确认。

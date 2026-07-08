@@ -86,9 +86,6 @@
   --border: oklch(0.885 0.012 85);
   --input: oklch(0.885 0.012 85);
   --ring: oklch(0.44 0.08 185);
-  --header-overlay-foreground: oklch(1 0 0);
-  --header-overlay-muted-foreground: oklch(1 0 0 / 0.78);
-  --header-overlay-hover: oklch(1 0 0 / 0.12);
 }
 
 .dark {
@@ -175,73 +172,6 @@
 
   .skip-link:focus-visible {
     transform: translateY(0);
-  }
-
-  [data-home-header] {
-    box-shadow: none;
-    backdrop-filter: none;
-  }
-
-  [data-home-header][data-scrolled="true"],
-  [data-home-header][data-panel-open="true"] {
-    background-color: var(--color-background) !important;
-    border-color: var(--color-border) !important;
-    color: var(--color-foreground);
-  }
-
-  [data-home-header] .home-header-link {
-    color: var(--header-overlay-muted-foreground);
-    transition: color 150ms ease;
-  }
-
-  [data-home-header] .home-header-brand {
-    color: var(--header-overlay-foreground);
-  }
-
-  [data-home-header] .home-header-link:hover,
-  [data-home-header] .home-header-link.is-active {
-    color: var(--header-overlay-foreground);
-  }
-
-  [data-home-header][data-scrolled="true"] .home-header-link,
-  [data-home-header][data-panel-open="true"] .home-header-link {
-    color: var(--color-muted-foreground);
-  }
-
-  [data-home-header][data-scrolled="true"] .home-header-brand,
-  [data-home-header][data-panel-open="true"] .home-header-brand {
-    color: var(--color-foreground);
-  }
-
-  [data-home-header][data-scrolled="true"] .home-header-link:hover,
-  [data-home-header][data-scrolled="true"] .home-header-link.is-active,
-  [data-home-header][data-panel-open="true"] .home-header-link:hover,
-  [data-home-header][data-panel-open="true"] .home-header-link.is-active {
-    color: var(--color-foreground);
-  }
-
-  [data-home-header] .home-header-action {
-    color: var(--header-overlay-muted-foreground);
-  }
-
-  [data-home-header] .home-header-action:hover,
-  [data-home-header] .home-header-action:focus-visible {
-    background-color: var(--header-overlay-hover);
-    color: var(--header-overlay-foreground);
-    outline: none;
-  }
-
-  [data-home-header][data-scrolled="true"] .home-header-action,
-  [data-home-header][data-panel-open="true"] .home-header-action {
-    color: var(--color-muted-foreground);
-  }
-
-  [data-home-header][data-scrolled="true"] .home-header-action:hover,
-  [data-home-header][data-scrolled="true"] .home-header-action:focus-visible,
-  [data-home-header][data-panel-open="true"] .home-header-action:hover,
-  [data-home-header][data-panel-open="true"] .home-header-action:focus-visible {
-    background-color: var(--color-muted);
-    color: var(--color-foreground);
   }
 }
 
