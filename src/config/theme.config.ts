@@ -54,11 +54,13 @@ export const authors = [
 ];
 
 export const categories = [
+  { slug: "moods", name: "Moods" },
   { slug: "essays", name: "Essays" },
-  { slug: "design", name: "Design" },
-  { slug: "engineering", name: "Engineering" },
-  { slug: "field-notes", name: "Field Notes" },
-  { slug: "interviews", name: "Interviews" },
+  { slug: "technology", name: "Technology" },
+  { slug: "discoveries", name: "Discoveries" },
+  { slug: "art", name: "Art" },
+  { slug: "poetry", name: "Poetry" },
+  { slug: "fiction", name: "Fiction" },
 ];
 
 export const tags = [

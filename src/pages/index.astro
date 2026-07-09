@@ -56,12 +56,9 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
         <span>Issue &middot; <time datetime={featured.date}>{formatDate(featured.date)}</time></span>
       </div>
       <div class="mt-5 max-w-3xl text-white [text-shadow:0_1px_16px_rgba(0,0,0,0.4)]">
-        <h1 class="font-serif text-[2.5rem] font-medium leading-[1.05] tracking-[-0.02em] sm:text-5xl lg:text-6xl">
-          自言自语的自留地
+        <h1 class="font-serif text-[1.5rem] font-medium leading-[1.35] tracking-[-0.02em] sm:text-4xl lg:text-5xl">
+          我是一只东走西顾的蚂蚁，<br />高举一粒晶莹的盐
         </h1>
-        <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
-          {SITE.description}
-        </p>
         <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
           <a
             href={`/blog/${featured.slug}`}
