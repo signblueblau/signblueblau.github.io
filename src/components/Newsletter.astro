@@ -11,7 +11,7 @@ const newsletterEnctype = hasNewsletterEndpoint ? FORMS.newsletter.enctype : und
 {
   compact ? (
     <div>
-      <div class="meta-label text-muted-foreground">Newsletter</div>
+      <div class="meta-label text-primary">Newsletter</div>
       <p class="mt-2 text-sm text-muted-foreground">A short letter, once a fortnight. No noise.</p>
       <form
         action={newsletterAction}
@@ -35,33 +35,40 @@ const newsletterEnctype = hasNewsletterEndpoint ? FORMS.newsletter.enctype : und
       </form>
     </div>
   ) : (
-    <section data-newsletter-cta class="border-t border-border/60 pt-16 pb-10">
-      <div class="mx-auto max-w-2xl px-5 text-center">
-        <h2 class="font-serif text-3xl font-semibold sm:text-4xl">A quieter inbox.</h2>
-        <p class="mt-3 text-muted-foreground">
-          One thoughtful letter every other Sunday &mdash; new essays, things worth reading, and the occasional photograph.
-        </p>
-        <form
-          action={newsletterAction}
-          method={newsletterMethod}
-          enctype={newsletterEnctype}
-          class="mx-auto mt-6 flex max-w-md flex-col gap-2 sm:flex-row"
-        >
-          <label for="newsletter-email" class="sr-only">Email address</label>
-          <input
-            id="newsletter-email"
-            name="email"
-            type="email"
-            required
-            autocomplete="email"
-            placeholder="you@example.com"
-            class="min-w-0 flex-1 rounded-md border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary"
-          />
-          <button type="submit" class="rounded-md bg-foreground px-5 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90">
-            Subscribe
-          </button>
-        </form>
-        <p class="mt-3 text-xs text-muted-foreground">Free. Unsubscribe in one click.</p>
+    <section data-newsletter-cta class="mx-auto max-w-4xl px-5 py-16">
+      <div class="rounded-md border border-border px-6 py-10 sm:px-10 sm:py-12">
+        <div class="grid gap-8 md:grid-cols-2 md:items-center">
+          <div>
+            <p class="meta-label text-primary">Newsletter</p>
+            <h2 class="mt-3 font-serif text-2xl font-medium tracking-[-0.01em] sm:text-3xl">A quieter inbox.</h2>
+            <p class="mt-3 max-w-md text-sm leading-relaxed text-muted-foreground">
+              One thoughtful letter every other Sunday &mdash; new essays, things worth reading, and the occasional photograph.
+            </p>
+          </div>
+          <div>
+            <form
+              action={newsletterAction}
+              method={newsletterMethod}
+              enctype={newsletterEnctype}
+              class="flex flex-col gap-2 sm:flex-row"
+            >
+              <label for="newsletter-email" class="sr-only">Email address</label>
+              <input
+                id="newsletter-email"
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                placeholder="you@example.com"
+                class="min-w-0 flex-1 rounded-md border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary"
+              />
+              <button type="submit" class="rounded-md bg-foreground px-5 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90">
+                Subscribe
+              </button>
+            </form>
+            <p class="mt-3 text-xs text-muted-foreground">Free. Unsubscribe in one click.</p>
+          </div>
+        </div>
       </div>
     </section>
   )
