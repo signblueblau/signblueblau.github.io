@@ -191,6 +191,16 @@
   & p {
     margin-bottom: 1.25rem;
   }
+  & > p:first-of-type::first-letter {
+    float: left;
+    margin-right: 0.09em;
+    padding-top: 0.04em;
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 3.6em;
+    line-height: 0.72;
+    color: var(--color-primary);
+  }
   & a {
     color: var(--color-primary);
     text-decoration: underline;
