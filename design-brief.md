@@ -46,8 +46,9 @@
 
 ## 5. 站点身份（Identity，M3 前完成）
 
-- **C23** SITE 配置更新为站主身份：站名、描述、URL `https://signblueblau.github.io`；移除指向 andreialba/quietpages 的 repositoryUrl 与社交占位链接（LICENSE 中的版权归属保留，MIT 要求）。
-- **C24** favicon 与站点视觉一致。
+- **C23** SITE 配置更新为站主身份（站主 2026-07-09 提供）：站名 **「肉骨明的自留地」**；描述 **「一个可以自言自语、无关痛痒的自留地」**；URL `https://signblueblau.github.io`。SOCIAL_LINKS 只保留 GitHub `https://github.com/signblueblau` + 邮箱 `blueblau@163.com` + RSS；移除 X/Twitter 占位与指向 andreialba/quietpages 的 repositoryUrl（LICENSE 中的 MIT 版权归属保留，协议要求）。
+- **C23b** 内容与作者去占位：删除 8 篇 demo 文章，留 **1 篇极简「欢迎」占位帖**（用站内真实分类之一、复用站内已有图片，保证 featuredPost()/RSS/分类页/sitemap 不因空集合崩溃）；作者体系从 3 个 demo 假作者收敛为 **1 个「肉骨明」**（bio 用无关痛痒的一句占位，头像沿用站内 SVG 首字母样式）。站主之后自行改写。**清空到 0 篇会使 build 崩溃，故保留 1 篇占位（站主已同意「你自己保证页面不崩」）。**
+- **C24** favicon 与站点视觉一致（暖金/靛蓝调）。
 
 ## 6. 不许动（Forbidden）
 

@@ -22,7 +22,7 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
 ---
 
 <BaseLayout
-  title={`${SITE.name} - Writing, design & the slow web`}
+  title={SITE.name}
   description={SITE.description}
   canonical="/"
   flushFooter
@@ -57,13 +57,10 @@ const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slu
       </div>
       <div class="mt-5 max-w-3xl text-white [text-shadow:0_1px_16px_rgba(0,0,0,0.4)]">
         <h1 class="font-serif text-[2.5rem] font-medium leading-[1.05] tracking-[-0.02em] sm:text-5xl lg:text-6xl">
-          An independent magazine on
-          <span class="italic"> writing</span>,
-          <span class="italic"> design</span>, and the
-          <span class="italic"> slow web</span>.
+          自言自语的自留地
         </h1>
         <p class="mt-6 max-w-xl text-lg leading-relaxed text-white/85">
-          Essays, field notes, and conversations &mdash; published occasionally, edited carefully, and meant to be read in a single sitting.
+          {SITE.description}
         </p>
         <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
           <a

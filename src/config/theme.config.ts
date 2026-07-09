@@ -1,17 +1,16 @@
 const siteUrl = (
   import.meta.env.SITE_URL ||
   import.meta.env.PUBLIC_SITE_URL ||
-  "https://quietpages-eta.vercel.app"
+  "https://signblueblau.github.io"
 ).replace(/\/$/, "");
 
 export const SITE = {
-  name: "Quiet Pages",
-  description:
-    "An independent magazine on writing, design, and the slow web. Published occasionally, read closely.",
+  name: "肉骨明的自留地",
+  description: "一个可以自言自语、无关痛痒的自留地",
   url: siteUrl,
   locale: "en-US",
   language: "en",
-  repositoryUrl: "https://github.com/andreialba/quietpages",
+  repositoryUrl: "https://github.com/signblueblau",
 };
 
 export const NAVIGATION = [
@@ -22,9 +21,7 @@ export const NAVIGATION = [
 ];
 
 export const CONTACT = {
-  email: "hello@example.com",
-  socialHandle: "@quietpages",
-  socialUrl: "https://x.com/quietpages",
+  email: "blueblau@163.com",
 };
 
 export const FORMS = {
@@ -42,35 +39,17 @@ export const FORMS = {
 
 export const SOCIAL_LINKS = [
   { href: "/rss.xml", label: "RSS feed", icon: "rss" },
-  { href: CONTACT.socialUrl, label: `${SITE.name} on X`, icon: "twitter" },
   { href: SITE.repositoryUrl, label: `${SITE.name} on GitHub`, icon: "github" },
   { href: `mailto:${CONTACT.email}`, label: "Email", icon: "mail" },
 ];
 
 export const authors = [
   {
-    slug: "elena-march",
-    name: "Elena March",
-    bio: "Writer & editor covering design, craft, and slow technology.",
-    longBio:
-      "Elena March writes about the quiet edges of design and technology. Previously an editor at two small magazines, she now publishes essays and field notes from a desk overlooking the harbour.",
-    avatar: "/avatars/elena-march.svg",
-  },
-  {
-    slug: "samuel-okafor",
-    name: "Samuel Okafor",
-    bio: "Software engineer with a soft spot for typography and the open web.",
-    longBio:
-      "Samuel builds tools for writers and reads more than he ships. He believes the best interfaces are the ones you don't notice.",
-    avatar: "/avatars/samuel-okafor.svg",
-  },
-  {
-    slug: "mira-iwasaki",
-    name: "Mira Iwasaki",
-    bio: "Photographer and essayist based between Kyoto and Lisbon.",
-    longBio:
-      "Mira's work sits at the intersection of place, memory, and the everyday object. Her essays have appeared in a number of small but loved publications.",
-    avatar: "/avatars/mira-iwasaki.svg",
+    slug: "rouguming",
+    name: "肉骨明",
+    bio: "在这里自言自语。",
+    longBio: "在这块自留地上随手写写，无关痛痒。",
+    avatar: "/avatars/rouguming.svg",
   },
 ];
 
