@@ -23,3 +23,8 @@ dist
 *.sln
 *.sw?
 .loop/
+
+# Loop-engineering scaffolding — kept locally, not published to the blog repo
+loop-state.md
+design-brief.md
+.claude/
