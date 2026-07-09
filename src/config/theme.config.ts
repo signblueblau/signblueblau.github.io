@@ -60,7 +60,7 @@ export const categories = [
   { slug: "discoveries", name: "Discoveries" },
   { slug: "art", name: "Art" },
   { slug: "poetry", name: "Poetry" },
-  { slug: "fiction", name: "Fiction" },
+  { slug: "travel", name: "Travel" },
 ];
 
 export const tags = [
