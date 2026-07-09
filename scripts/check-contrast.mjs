@@ -69,12 +69,9 @@ function contrast(fg, bg) {
 }
 
 let failures = 0;
-for (const [mode, selector] of [
-  ["light", ":root"],
-  ["dark", ".dark"],
-]) {
+for (const [mode, selector] of [["single", ":root"]]) {
   const tokens = parseTokens(extractBlock(css, selector));
-  console.log(`\n[${mode} mode]`);
+  console.log(`\n[${mode} palette]`);
   for (const [fg, bg, min, label] of REQUIRED_PAIRS) {
     if (!tokens[fg] || !tokens[bg]) {
       console.log(`  SKIP ${fg} on ${bg} (token missing or not oklch)`);

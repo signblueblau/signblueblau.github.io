@@ -69,17 +69,6 @@ const ogImageUrl = absoluteUrl(ogImage);
         <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
       )
     }
-    <script is:inline>
-      (function () {
-        try {
-          var theme = localStorage.getItem("theme");
-          var dark = theme
-            ? theme === "dark"
-            : matchMedia("(prefers-color-scheme: dark)").matches;
-          if (dark) document.documentElement.classList.add("dark");
-        } catch (error) {}
-      })();
-    </script>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>

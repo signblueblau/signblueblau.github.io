@@ -13,11 +13,33 @@
 
 ## Milestones（人工复核点）
 
-- [x] **M1 设计基座定稿**：T1–T3 全部 done。站主 2026-07-08 验收通过（墨青/松绿色系 + 安静印刷基座 OK），放行 T4。
-- [ ] **M2 首页改版定稿**：T4–T6 全部 done 后停。站主亲眼看新首页。
+- [~] **M1 设计基座定稿**：T1–T3 曾于 2026-07-08 验收通过（墨青/暖纸）。**2026-07-09 站主推翻配色决定**：改用 Scheme B（午夜靛蓝+暖金）且**只要单一色系、不要深色模式**。配色需重做 → 见 R1。字体/卡片/标签基座（T2/T3）不受影响仍有效。
+- [ ] **M2 首页改版定稿**：T5/T6（网格、页脚）仍有效；**T4 hero 被推翻**（封面式 → 全出血云图压字）→ 见 R2。R1+R2 done 后重新验收整站首页。
 - [ ] **M3 上线前检查**：全部任务 done 后停。站主过一遍全站 + 批准建 repo/push/开 Pages。
 
 ## Backlog（按序执行，禁止跳序）
+
+> **修订任务优先**：R1、R2 是 2026-07-09 站主推翻配色/hero 决定后的重做任务，排在 T7 之前先跑。
+
+### R1 配色改 Scheme B（午夜靛蓝+暖金，单色系）[status: done]
+- 条款：C1–C7（已按 Scheme B 重写）
+- 范围：`src/styles.css` 色板 + Header.astro（移除主题切换按钮及其 JS/localStorage）+ BaseLayout.astro（移除 prefers-color-scheme / .dark 注入逻辑）
+- 内容：:root 单一色板改为午夜靛蓝底 oklch(0.28 0.05 265) + 暖金 primary oklch(0.80 0.12 75)（C2/C4）；删除 .dark 变体 token（C1）；移除 header ☀/🌙 切换按钮 + 相关 JS + localStorage theme 逻辑（C1）；过对比度门禁（C6）
+- 备注：推翻 T1（旧墨青/暖纸双模式）。check-contrast.mjs 已改为单色系检查。
+- status: done
+- attempt: 1
+- changed_files: src/styles.css, src/components/Header.astro, src/layouts/BaseLayout.astro
+- summary: 按 Scheme B 重造单一 :root 色板（C2 午夜靛蓝底 oklch(0.28 0.05 265)、card/popover 0.31、secondary/muted 0.34、accent 0.36 同色相略深表面；C3 暖白前景 oklch(0.95 0.01 85)、muted-foreground oklch(0.74 0.03 250) 靛调灰过 6.37:1、border oklch(0.40 0.05 265) 靛调分隔线；C4 暖金 primary oklch(0.80 0.12 75)、ring 同值、primary-foreground 深靛 oklch(0.20 0.03 265) 使金底深字达 9.56:1；C5 仅暖金家族 + destructive 红保留表单错误用）。C1 彻底移除深色模式：删掉 styles.css 的 `@custom-variant dark` 行、整个 `.dark{}` token 覆盖块、以及 prose-article 里 6 处 `.dark &`（code/pre/pre code/pre span/copy-button ×2）覆盖——单色系下基础 `&` 规则即唯一规则，无残留 `.dark &` 选择器；Header.astro 删除 ☀/🌙 主题切换按钮 markup + 其 querySelector（themeToggle/moonIcon/sunIcon）+ setThemeIcon 函数与调用 + click 事件处理器（含 localStorage.setItem theme）；BaseLayout.astro 删除 head 内读 localStorage theme + matchMedia(prefers-color-scheme) 并注入 .dark 的 FOUC 内联脚本。C7 全部走 custom properties，组件内无硬编码色（hero 留给 R2 未动）。C6 门禁 7 对全 PASS。
+- self_check: build PASS（29 页，exit 0）/ contrast PASS（单色系 7 对全过：正文 12.66:1、card 11.42:1、muted 6.37:1、primary 7.73:1、primary-fg on primary 9.56:1、secondary-fg 10.20:1、accent-fg 9.42:1）
+- verdict: PASS
+- evidence: 评判器亲自复跑。GATE1：`npm run build` exit 0（29 页 Complete）；`node scripts/check-contrast.mjs` exit 0，单一色板 7 对全 PASS（正文 12.66:1、card 11.42:1、muted-fg 6.37:1、primary 7.73:1、primary-fg on primary 9.56:1、secondary-fg 10.20:1、accent-fg 9.42:1）——check-contrast.mjs 改为单色系（[["single",":root"]]）属授权的推翻配套，7 个 REQUIRED_PAIRS 与阈值（正文/卡 7:1、其余 4.5:1）及 oklch 亮度算法一字未改，门禁未被削弱。GATE2 git diff 逐文件读：源码恰为声称 3 文件——styles.css（删 `@custom-variant dark`+整个 `.dark{}` 块+prose-article 内 6 处 `.dark &`：code/pre/pre code/pre span/copy-button×2；:root 重造为 Scheme B）、Header.astro（删 ☀/🌙 按钮 markup + themeToggle/moonIcon/sunIcon querySelector + setThemeIcon 函数与调用 + click 处理器含 localStorage.setItem）、BaseLayout.astro（删 head 内 FOUC 内联脚本）；另 design-brief.md（本轮 C1–C7 重写=我的判据基准）与 check-contrast.mjs（单色系改造）属推翻配套，hero-clouds.jpg 系 R2 未引用素材（grep 确认无引用）。逐值核对：C2 bg oklch(0.28 0.05 265)（L0.28∈[.26,.30]/hue265∈[255,275]/C0.05∈[.04,.06]）、card/popover 0.31 略深；C3 fg oklch(0.95 0.01 85)、muted-fg oklch(0.74 0.03 250) 过 6.37:1、border oklch(0.40 0.05 265)；C4 primary oklch(0.80 0.12 75)（L0.80∈[.76,.84]/hue75∈[70,90]/C0.12∈[.11,.14]，金 hue75 离锈橙~30 且高于禁区[15,65]）、primary-fg 深靛 oklch(0.20 0.03 265)；C5 仅暖金家族 + destructive 红保留。**C1 make-or-break**：src/ 全量 grep `\.dark`/`dark:`/`prefers-color-scheme`/`matchMedia`/`data-theme`/`localStorage`/`custom-variant`/`theme-toggle`/moon/sun 图标引用——功能性深色代码 0 命中（9 处 classList 均为 TOC/filter/copy 无关逻辑）；dist/_astro/*.css `.dark` 计数 0，dist HTML/JS 无 FOUC/theme 残留。C7 Header/BaseLayout 无硬编码 hex/rgb/hsl。C25 skip-link/#main-content(×2)/focus-visible(×4)/prefers-reduced-motion 全在；C26 RSS/sitemap/robots/SEO/content.config 未触；C27 package.json 未改无新依赖。GATE3 亲眼看（6 张实拍 .loop/screenshots/R1/）+ 运行时实测：桌面 1280px 首页 body computed bg=oklch(0.28 0.05 265) 午夜靛蓝、color=oklch(0.95 0.01 85) 暖白、--primary=oklch(0.80 0.12 75) 金、htmlHasDark=false、theme-toggle 不存在、search+menu toggle 在、h1count=1；金强调实测——分类眉线(ENGINEERING)/「Read the essay」/lead-essay 链接均 computed color=oklch(0.80 0.12 75)，prose-article `& a` 规则=var(--color-primary) 金；无残留 teal/paper 白底/锈橙。header 仅 search+RSS 图标无 ☀/🌙。**运行时 null-ref 专项**：首页+文章页 console --clear 后重载，仅 [vite] debug，0 error/warning——移除的 toggle handler/FOUC 脚本无「Cannot read null」抛错。search toggle 点击 open=true；mobile 375px menu 点击 open→Escape close，scrollWidth==clientWidth==360 无溢出。文章页 body 靛底暖白、code block 为亮纸 inset（bg oklch(0.975)/暗字/1px border）高对比可读、非破损。回归：hero 仍旧封面式（左文右框式秋景图+ON THE COVER）坐落靛底，recolor 未使其破损（R2 待改）。核对条款：C1–C7 全过；C25/C26/C27 禁区未触。
+
+### R2 hero 改全出血云图压字 [status: todo]
+- 条款：C14（已改回全出血）、C10
+- 范围：index.astro hero 区
+- 内容：把 T4 的两栏封面式构图改回**全出血大图 + 白字压图**（原版方式），图片用 `src/assets/hero-clouds.jpg`（云天，非原版秋景）；适配全出血比例、暗化渐变保证白字可读、保留 folio 眉线（C14）
+- 备注：推翻 T4（封面式）。依赖 R1 的新色板先落地。
+- blockedBy: R1
 
 ### T1 配色系统重造 [status: done]
 - 条款：C1–C7
@@ -106,7 +128,7 @@
 
 ## Review 区（生成器提交后填）
 
-- （空）
+- （空——R1 已裁决 PASS 并 commit，见圈次日志）
 
 ## Inbox（等人工）
 
@@ -121,3 +143,4 @@
 - 2026-07-08 / T4 首页 lead story 改版 / PASS / build+contrast 门禁全过（删 3 个 --header-overlay-* 非门禁变量无回归），diff 仅 4 文件无越界、orphan grep（data-home-header/header-overlay/setPanelOpen/setHeaderScrolled 等）全 0 命中，hero 由全出血压字改编辑部左文右图两领地（folio 眉线 uppercase/0.100em + 框式封面 figcaption + primary 墨青 oklch(0.44 0.08 185) 无锈橙），对照 preview.webp 结构可辨认不同；header 改半透纸底+blur 滚动无 background-swap 破坏，search/menu/Escape/theme 交互实测全存，Latest filter 6→1 回归正常，375px 无溢出；11 张实拍双模式双端确认。
 - 2026-07-09 / T5 首页编辑层级网格 / PASS / build exit 0，diff 仅 3 文件、PostCard 59 增 0 删（default/list/compact 未改仅加 lead 分支），无硬编码色/未触禁区（C29）；实测 lead tile col-span 1/-1 满行 1112px 左图右文、其下 5 张 default 344px 3 列均权，呈一大多小杂志层级（C15）；关键 filter 直点真实按钮实测——非 lead 类（essays/engineering/interviews）时 lead display:none、grid 塌成单行无空档无残留轨道（要猎的 col-span-full 塌陷失败模式未发生），lead 类与 ALL 复位均正常；lead box-shadow=none/border-top 1px/圆角 4px、heading h1→h2→h3 合法、375px 无溢出，hero/Featured/Newsletter/Footer 无回归；6 张实拍确认。
 - 2026-07-09 / T6 Newsletter 与页脚 masthead / PASS / build exit 0（29 页），diff 仅 3 文件无越界、无 box-shadow/硬编码色/新字体（C7/C8/C13）；Newsletter full 改 rounded-md 1px hairline 框（box-shadow=none/radius 4px）左右两栏 + 墨青 meta-label 眉线，非彩色 CTA（C18），compact 眉线改墨青；两变体表单 action/method/id/label 字节保留，实测点 label 分别聚焦 newsletter-email / newsletter-email-compact，功能不变；Footer 成 masthead/colophon——站名+描述+社交行压 hairline + 三 meta-label 列（Sections/The site/Colophon 字体署名）+ 底部升 meta-label（C17），13 链接全保留（RSS /rss.xml、4 社交带 aria-label、5 分类、About/Contact/Archive）、footer landmark 在（C25/C26）；light+dark 双模式墨青眉线（避锈橙禁区）、375px 无溢出双栏堆叠，hero(T4)/lead 网格(T5) 无回归；8 张实拍确认。M2 触发 → loop 停等站主验收新首页。
+- 2026-07-09 / R1 配色改 Scheme B（单色系）/ PASS / build+contrast 门禁全过（7 对全 PASS，正文 12.66:1、primary 7.73:1、金底深字 9.56:1；check-contrast.mjs 单色系改造未削阈值），diff 恰 3 源文件（+brief/contrast 推翻配套），C2 午夜靛蓝 oklch(0.28 0.05 265)/C4 暖金 oklch(0.80 0.12 75) 逐值在界且离锈橙禁区；**C1 深色模式彻底移除**——src 全量 grep（.dark/prefers-color-scheme/matchMedia/localStorage/custom-variant/theme-toggle/moon-sun）0 功能残留、dist CSS .dark=0、无悬挂选择器；运行时首页+文章 console 0 error（移除的 toggle/FOUC handler 无 null-ref 抛错），search/menu toggle 实测正常、375px 无溢出；6 张实拍确认全站靛底暖白金强调、header 无 ☀/🌙、code block 亮纸 inset 可读、hero 旧封面式坐落靛底未破损（待 R2）。核对 C1–C7 全过。下一步 R2（hero）→ 之后 M2 整站首页复验。

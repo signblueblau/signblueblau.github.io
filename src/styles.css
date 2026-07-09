@@ -34,8 +34,6 @@
     U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -67,47 +65,25 @@
 
 :root {
   --radius: 0.375rem;
-  --background: oklch(0.965 0.009 85);
-  --foreground: oklch(0.21 0.015 80);
-  --card: oklch(0.965 0.009 85);
-  --card-foreground: oklch(0.21 0.015 80);
-  --popover: oklch(0.98 0.005 85);
-  --popover-foreground: oklch(0.21 0.015 80);
-  --primary: oklch(0.44 0.08 185);
-  --primary-foreground: oklch(0.975 0.006 85);
-  --secondary: oklch(0.935 0.01 85);
-  --secondary-foreground: oklch(0.23 0.015 80);
-  --muted: oklch(0.935 0.01 85);
-  --muted-foreground: oklch(0.46 0.02 80);
-  --accent: oklch(0.92 0.012 85);
-  --accent-foreground: oklch(0.23 0.015 80);
-  --destructive: oklch(0.55 0.22 27);
-  --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.885 0.012 85);
-  --input: oklch(0.885 0.012 85);
-  --ring: oklch(0.44 0.08 185);
-}
-
-.dark {
-  --background: oklch(0.15 0.009 75);
-  --foreground: oklch(0.93 0.008 80);
-  --card: oklch(0.15 0.009 75);
-  --card-foreground: oklch(0.93 0.008 80);
-  --popover: oklch(0.19 0.009 75);
-  --popover-foreground: oklch(0.93 0.008 80);
-  --primary: oklch(0.76 0.08 180);
-  --primary-foreground: oklch(0.15 0.009 75);
-  --secondary: oklch(0.21 0.008 75);
-  --secondary-foreground: oklch(0.93 0.008 80);
-  --muted: oklch(0.21 0.008 75);
-  --muted-foreground: oklch(0.68 0.015 80);
-  --accent: oklch(0.23 0.008 75);
-  --accent-foreground: oklch(0.93 0.008 80);
+  --background: oklch(0.28 0.05 265);
+  --foreground: oklch(0.95 0.01 85);
+  --card: oklch(0.31 0.05 265);
+  --card-foreground: oklch(0.95 0.01 85);
+  --popover: oklch(0.31 0.05 265);
+  --popover-foreground: oklch(0.95 0.01 85);
+  --primary: oklch(0.80 0.12 75);
+  --primary-foreground: oklch(0.20 0.03 265);
+  --secondary: oklch(0.34 0.05 265);
+  --secondary-foreground: oklch(0.95 0.01 85);
+  --muted: oklch(0.34 0.05 265);
+  --muted-foreground: oklch(0.74 0.03 250);
+  --accent: oklch(0.36 0.05 265);
+  --accent-foreground: oklch(0.95 0.01 85);
   --destructive: oklch(0.7 0.19 22);
-  --destructive-foreground: oklch(0.15 0.009 75);
-  --border: oklch(0.29 0.008 75);
-  --input: oklch(0.29 0.008 75);
-  --ring: oklch(0.76 0.08 180);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.40 0.05 265);
+  --input: oklch(0.40 0.05 265);
+  --ring: oklch(0.80 0.12 75);
 }
 
 @layer base {
@@ -255,10 +231,6 @@
     padding: 0.15rem 0.4rem;
     border-radius: 4px;
   }
-  .dark & code {
-    color: oklch(0.88 0.08 55);
-    background: oklch(0.23 0.006 80);
-  }
   & .code-block {
     position: relative;
     width: 100%;
@@ -281,11 +253,6 @@
     font-size: 0.9rem;
     line-height: 1.6;
   }
-  .dark & pre {
-    color: oklch(0.91 0.012 85) !important;
-    background: oklch(0.18 0.006 80) !important;
-    border-color: oklch(0.33 0.006 80);
-  }
   & pre code {
     display: block;
     min-width: max-content;
@@ -293,15 +260,8 @@
     background: transparent;
     padding: 0;
   }
-  .dark & pre code {
-    color: inherit;
-    background: transparent;
-  }
   & pre span {
     color: oklch(0.28 0.035 70) !important;
-  }
-  .dark & pre span {
-    color: oklch(0.89 0.014 85) !important;
   }
   & .code-copy-button {
     position: absolute;
@@ -355,16 +315,6 @@
   & .code-copy-button.is-copied::after {
     opacity: 1;
     transform: translateY(0);
-  }
-  .dark & .code-copy-button {
-    color: oklch(0.73 0.012 85);
-    background: oklch(0.24 0.006 80 / 0.94);
-    border-color: oklch(0.38 0.006 80);
-  }
-  .dark & .code-copy-button:hover,
-  .dark & .code-copy-button:focus-visible {
-    color: var(--color-foreground);
-    border-color: var(--color-primary);
   }
   & hr {
     border: 0;

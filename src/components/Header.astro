@@ -54,15 +54,6 @@ const iconClass = "inline-flex h-9 w-9 items-center justify-center rounded-full 
       </a>
       <button
         type="button"
-        data-theme-toggle
-        aria-label="Toggle dark mode"
-        class={iconClass}
-      >
-        <span data-theme-icon="moon"><Icon name="moon" class="h-4 w-4" /></span>
-        <span data-theme-icon="sun" hidden><Icon name="sun" class="h-4 w-4" /></span>
-      </button>
-      <button
-        type="button"
         data-menu-toggle
         aria-label="Menu"
         aria-controls="mobile-menu"
@@ -116,9 +107,6 @@ const iconClass = "inline-flex h-9 w-9 items-center justify-center rounded-full 
   const menuPanel = document.querySelector("[data-menu-panel]");
   const menuIcon = document.querySelector('[data-menu-icon="menu"]');
   const closeIcon = document.querySelector('[data-menu-icon="x"]');
-  const themeToggle = document.querySelector("[data-theme-toggle]");
-  const moonIcon = document.querySelector('[data-theme-icon="moon"]');
-  const sunIcon = document.querySelector('[data-theme-icon="sun"]');
 
   const setMenu = (open) => {
     menuPanel.hidden = !open;
@@ -132,14 +120,6 @@ const iconClass = "inline-flex h-9 w-9 items-center justify-center rounded-full 
     searchToggle?.setAttribute("aria-expanded", String(open));
     if (open) searchInput?.focus();
   };
-
-  const setThemeIcon = () => {
-    const dark = document.documentElement.classList.contains("dark");
-    moonIcon.hidden = dark;
-    sunIcon.hidden = !dark;
-  };
-
-  setThemeIcon();
 
   searchToggle?.addEventListener("click", () => {
     setSearch(searchPanel.hidden);
@@ -159,12 +139,5 @@ const iconClass = "inline-flex h-9 w-9 items-center justify-center rounded-full 
       setMenu(false);
       menuToggle?.focus();
     }
-  });
-
-  themeToggle?.addEventListener("click", () => {
-    const next = !document.documentElement.classList.contains("dark");
-    document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-    setThemeIcon();
   });
 </script>
