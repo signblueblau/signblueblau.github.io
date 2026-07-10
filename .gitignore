@@ -27,4 +27,5 @@ dist
 # Loop-engineering scaffolding — kept locally, not published to the blog repo
 loop-state.md
 design-brief.md
+HANDOFF.md
 .claude/
